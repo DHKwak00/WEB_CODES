@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- **************************** 중요 ********************************* -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Window</title>
+<script type="text/javascript">
+window.onload = function(){
+	// window.onload : 
+	// - HTML 문서를 모두 로딩해서 화면(window)의 로딩이 끝났을 때 생성되는 이벤트
+	// - 모든 자바스크립트 코드는 window.onload 이벤트 리스너(핸들러)
+	//	 함수 내부에서 작성하는 것이 좋음
+	//	 1) 모든 DOM 객체들이 생성된 후 - getElement를 안심하고 사용
+	//	 2) 모든 변수가 이벤트 리스너의 지역변수가 됨
+	//	 -> 의도치 않게 window 객체가 가지고 있는 전역변수(프로퍼티)를
+	//		변경하는 것을 방지 할 수 있음
+	console.log(2);
+	var output1 = document.getElementById('output1');
+	var innerWidth = 100;
+	output1.innerHTML += 'Hello<br>';
+	output1.innerHTML += 'width : ' + window.innerWidth + '<br>';
+	output1.innerHTML += 'width : ' + innerWidth + '<br>';
+}
+</script>
+</head>
+<body>
+	<h1>자바스크립트 window 객체</h1>
+	<div id="output1"></div>
+	<div id="output2"></div>
+	<script type="text/javascript">
+		// DOM(Document Object Model) : html, head, body, ... 요소의 접근을 위한 형태
+		// BOM(Browser Object Model) : Window, Screen, Location, History
+		// Window 객체 : 브라우저 창을 의미. HTML 객체의 최상위 객체
+		
+		var output2 = document.getElementById('output2');
+		// var innerWidth = 100;
+		output2.innerHTML = 'width : ' + window.innerWidth; // .innerWidth는 현재 브라우저의 창 길이
+		
+		console.log(1);
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사칙연산 계산기</title>
+</head>
+<body>
+	<input type="text" id="input1">
+	<input type="text" id="input2">
+	<button onclick="plus()">더하기</button>
+	<button onclick="minus()">빼기</button>
+	<button onclick="multiply()">곱하기</button>
+	<button onclick="divide()">나누기</button>
+	<button onclick="reset()">내용 초기화</button>
+	<div id="output"></div>
+	
+	<script type="text/javascript">
+			
+		function plus() {
+			var output = document.getElementById('output');
+			var i = document.getElementById('input1').value;
+			var j = document.getElementById('input2').value;
+			console.log(i);
+			console.log(typeof i);
+			console.log(j);
+			console.log(typeof j);
+			var plus = Number(i) + Number(j);
+			output.innerHTML += i + ' + ' + j + ' = ' + plus + '<br>';
+		}// end plus()
+		
+		function minus(){
+			var output = document.getElementById('output');
+			var i = document.getElementById('input1').value;
+			var j = document.getElementById('input2').value;
+			console.log(i);
+			console.log(typeof i);
+			console.log(j);
+			console.log(typeof j);
+			var minus = Number(i) - Number(j);
+			output.innerHTML += i + ' - ' + j + ' = ' + minus + '<br>';
+			
+		}// end minus()
+		
+		function multiply(){
+			var output = document.getElementById('output');
+			var i = document.getElementById('input1').value;
+			var j = document.getElementById('input2').value;
+			console.log(i);
+			console.log(typeof i);
+			console.log(j);
+			console.log(typeof j);
+			var multiply = Number(i) * Number(j);
+			output.innerHTML += i + ' * ' + j + " = " + multiply + '<br>';
+			
+		}// end multiply()
+		
+		function divide(){
+			var output = document.getElementById('output');
+			var i = document.getElementById('input1').value;
+			var j = document.getElementById('input2').value;
+			console.log(i);
+			console.log(typeof i);
+			console.log(j);
+			console.log(typeof j);
+			var divide = Number(i) / Number(j);
+			output.innerHTML += i + ' / ' + j + ' = ' + divide + '<br>';
+			
+		}// end divide()
+		
+		function reset(){
+			var output = document.getElementById('output');
+			output.remove();
+			console.log(output);
+		}
+	</script>
+</body>
+</html>
