@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Find</title>
+<script src="https://code.jquery.com/jquery-3.6.4.slim.js" 
+integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" 
+crossorigin="anonymous"></script> 
+</head>
+<body>
+	<textarea id="boardComment"></textarea>
+	
+	<ul id="memberList">
+	
+	</ul>
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		/* board comment */ 
+		$('#boardComment').keyup(function(){
+			// console.log($(this).val());
+			var comment = $(this).val();
+			var findAltIndex = comment.lastIndexOf('@');
+			console.log(findAltIndex);
+			if(findAltIndex != -1) { // @를 발견하면
+				var keyword = comment.substring(findAltIndex + 1, comment.length);
+				var reg = /^[ㄱ-ㅎ가-힣a-zA-Z0-9_]*$/;
+				console.log('확인 : ' + reg.test(keyword));
+				
+				if(reg.test(keyword)) {
+					getMemberList(keyword);
+				} else {
+					$('#memberList').empty();
+				}
+				
+			} else {
+				$('#memberList').empty();
+			}
+			 
+			
+		}); // end boardComment.change();
+		
+		function getMemberList(keyword) {
+			console.log('회원 리스트 보내기 전 키워드 : ' + keyword);
+			var memberList = ['진혁', '진구', '진호'];
+			
+			var list = '';
+			for(var i = 0; i < memberList.length; i++) {
+				if(memberList[i].match(keyword)) {
+					list += '<li class="list-group-item">' 
+								+ '<a href="#" class="member-item">'
+								+ memberList[i] + '</a>'
+								+ '</li>';				
+				}
+				
+			}
+				
+			$('#memberList').html(list);
+	
+		} // end getMemberList()
+		
+		
+	}); // end ready()
+		
+	</script>
+</body>
+</html>
+
+
+
+
+
