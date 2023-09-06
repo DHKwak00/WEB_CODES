@@ -25,7 +25,7 @@ public class ForwardTestServlet extends HttpServlet {
 	// forward : URL 주소 유지. request/response 객체 유지
     // - 같은 웹 서버 내에 있는 파일들로만 이동이 가능
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		asd
 		// 존재하는 JSP 페이지에 데이터를 보내는 방식
 		// info.html -> ForwardTestServlet.java(/forward) -> result.jsp
 		
