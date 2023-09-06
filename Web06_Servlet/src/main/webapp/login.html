@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 
+	* Form
+	- form : 데이터를 보낼 패키지를 입력하는 태그(form 안에서만 아래 기능들이 실행됨)
+	- action : 사용자가 보낼 주소(url)를 입력하는 속성
+	- method : 데이터를 전송하는 방식을 결정하는 속성
+		1) GET 방식 : 사용자가 입력한 데이터를 url 주소와 함께 서버로 전송하는 방식
+		2) POST 방식 : 사용자가 입력한 데이터를 요청 패킷(request packet)의
+			body에 포함시켜서 외부에 노출되지 않도록 전송하는 방식
+			
+	* input : 전송할 데이터를 입력하는 태그
+	- type : 입력 형식을 결정하는 속성
+	- name : 변수 이름을 설정하는 속성
+	
+ -->
+ 	<h1>Login 페이지</h1>
+ 	<h2>GET 요청 방식</h2>
+ 	<form action="loginTest" method="GET"> <!-- action : 보낼 주소/ method : 보내는 방식 -->
+ 		<input type="text" name="userid" placeholder="ID">
+ 		<br>
+ 		<input type="password" name="password" placeholder="PASSWORD">
+ 		<br>
+ 		<input type="submit" value="로그인">
+ 	</form>
+ 	
+ 	
+ 	
+</body>
+</html>
