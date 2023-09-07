@@ -6,7 +6,7 @@
 </head>
 <body>
 <!-- 
-	* Form
+	* Form (JSP도 html 베이스라 폼 사용 가능)
 	- form : 데이터를 보낼 패키지를 입력하는 태그(form 안에서만 아래 기능들이 실행됨)
 	- action : 사용자가 보낼 주소(url)를 입력하는 속성
 	- method : 데이터를 전송하는 방식을 결정하는 속성
@@ -22,8 +22,17 @@
  -->
  	<h1>Login 페이지</h1>
  	<h2>GET 요청 방식</h2>
- 	<form action="/loginTest" method="GET"> <!-- action : 보낼 주소/ method : 보내는 방식 -->
- 		<input type="text" name="userid" placeholder="ID">
+ 	<form action="loginTest" method="GET"> <!-- action : 보낼 주소/ method : 보내는 방식 -->
+ 		<input type="text" name="userid" placeholder="ID"> <!-- name -> 이름 지정해주는 파라미터 방식 -->
+ 		<br>
+ 		<input type="password" name="password" placeholder="PASSWORD">
+ 		<br>
+ 		<input type="submit" value="로그인">
+ 	</form>
+ 	
+ 	<h2>POST 요청 방식</h2>
+ 	<form action="loginTest" method="POST"> <!-- action : 보낼 주소/ method : 보내는 방식 -->
+ 		<input type="text" name="userid" placeholder="ID"> <!-- name -> 이름 지정해주는 파라미터 방식 -->
  		<br>
  		<input type="password" name="password" placeholder="PASSWORD">
  		<br>

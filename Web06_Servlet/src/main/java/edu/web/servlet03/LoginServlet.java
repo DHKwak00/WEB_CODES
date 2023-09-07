@@ -17,7 +17,6 @@ public class LoginServlet extends HttpServlet {
     		LoginServlet.class.getName();
     
     public LoginServlet() {
-        super();
         
     }
 
@@ -26,10 +25,11 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(CLASSNAME + " : doGet() 호출");
 		login(request, response);
 	}
-
+	
+	// doPost() : form method = "POST" 방식으로 전송할 경우 doPost()로 수신
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		doGet(request, response);
+		System.out.println(CLASSNAME + " : doPost() 호출");
+		login(request, response);
 	}
 	
 	// 택배차량의 역할
@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 		
 		// 요청 파라미터(request parameter)의 값을 읽어옴
 		String userid = request.getParameter("userid"); // 변수명, 파라미터, html 폼의 name의 이름 같게
-		String password = request.getParameter("password");
+		String password = request.getParameter("password"); // 파라미터로 넘겨 받는 (키벨류 방식)
 		
 		System.out.println("아이디 : " + userid);
 		System.out.println("비밀번호 : " + password);
