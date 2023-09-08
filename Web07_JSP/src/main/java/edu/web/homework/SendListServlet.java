@@ -50,7 +50,7 @@ public class SendListServlet extends HttpServlet {
 		BoardVO vo3 = new BoardVO(3, "오늘 저녁 추천 좀", "4444", now);
 		BoardVO vo4 = new BoardVO(4, "오늘 하루 끝", "5555", now);
 		
-		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		ArrayList<BoardVO> list = new ArrayList<>();
 		list.add(vo0);
 		list.add(vo1);
 		list.add(vo2);

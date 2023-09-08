@@ -20,7 +20,7 @@ table{
 	width : 100%;
 }
 td, th{
-	borfer : 1px, solid, #dddddd;
+	borfer : 10px, solid, #dddddd;
 	text-align : left;
 	padding : 8px;	
 }
@@ -35,7 +35,10 @@ td, th{
 	<table>
 		<thead>
 			<tr>
-				<th>게시글</th>
+				<th>게시글 번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
 			</tr>	
 		</thead>
 		<tbody>
