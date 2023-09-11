@@ -20,7 +20,7 @@
 	<h2>include 액션 태그 예제</h2>
 	<jsp:include page="02_syntax.jsp"></jsp:include>
 	<%--
-		* jsp:include
+		* jsp:include*
 		- 포함된 jsp 파일을 요청할 때마다 페이지를 수행(동적)
 		- 별도의 파일에 대한 요청을 처리 할 때 사용
 			(예시 - 로그인 했을 때 특정 레이아웃만 변경하도록)

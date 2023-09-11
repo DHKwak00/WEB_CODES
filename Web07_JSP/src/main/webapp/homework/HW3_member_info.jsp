@@ -30,6 +30,7 @@
 	<p>관심사항 : 
 	<%
 	String[] str = member.getInterest();
+	
 	if(member.getInterest() == null){
 		out.println(" 없음 ");
 	}else{

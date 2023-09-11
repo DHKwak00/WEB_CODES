@@ -22,8 +22,8 @@
 			value : property에 들어갈 값(데이터)
 		- 범위(scope)
 			page : 생성된 페이지 내에서 사용 가능 (나 jsp)
-			request : 요청된 페이지 내에서 사용 가능 (나와 너)
-			session : 웹 브라우저(크라이언트)의 생명 주기 내에서 사용 가능 (크롬 끄기)
+			request* : 요청된 페이지 내에서 사용 가능 (나와 너 '무조건'***)
+			session* : 웹 브라우저(크라이언트)의 생명 주기 내에서 사용 가능 (크롬 끄기)
 			application : 웹 어플리케이션의 생명 주기 내에서 사용 가능
 		- scope의 포함 관계
 			page < request < session < application
