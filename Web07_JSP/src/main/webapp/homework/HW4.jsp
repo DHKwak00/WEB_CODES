@@ -28,7 +28,7 @@
 	 --%>
 	 
 	 <form action="HW4_login_auth.jsp" method="post">
-	 	아이디 <br><input type="text" name="userId"><br>
+	 	아이디 <br><input type="text" name="userId" required="required"><br> <!-- required="required" 필수입력 요청 -->
 	 	비밀번호 <br><input type="password" name="password"><br>
 	 	<input type="submit" value="로그인">
 	 </form>

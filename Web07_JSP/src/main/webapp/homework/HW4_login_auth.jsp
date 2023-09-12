@@ -19,7 +19,7 @@
  --%>
  
  <%
- 	String userId = request.getParameter("userId");
+ 	String userId = request.getParameter("userId"); /* form은 parameter 사용해야한다 */
  	String userPw = request.getParameter("password");
  	System.out.println("폼에서 받은 " + userId);
  	System.out.println(userPw);
@@ -27,7 +27,7 @@
  	if(userId.equals("test") && userPw.equals("1234")){
  	
  		session.setMaxInactiveInterval(30);
- 		session.setAttribute("userId", userId);
+ 		session.setAttribute("userId", userId); // 세션 생성
  		out.print("<script>location.href='HW4_login_result.jsp'</script>");
  		
  	}else{
