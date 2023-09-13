@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 		// PrintWriter 클래스
 		// - HTML 페이지를 생성해주는 클래스
 		PrintWriter out = response.getWriter();
-		out.append("<!DOCTYPE HTML")
+		out.append("<!DOCTYPE HTML>")
 			.append("<header><meta charset='utf-8'></head>")
 			.append("<body>")
 			.append("<h1>로그인 결과 페이지</h1>")

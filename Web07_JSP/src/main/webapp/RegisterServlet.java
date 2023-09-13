@@ -30,7 +30,7 @@ public class RegisterServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// form과 매칭해가며 쓰기
-		String userId = request.getParameter("userid");
+		String userid = request.getParameter("userid");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
 		String emailAgree = request.getParameter("emailAgree");
@@ -38,7 +38,7 @@ public class RegisterServlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String introduce = request.getParameter("introduce");
 		
-		MemberVO vo = new MemberVO(userId, password, email, emailAgree, interest, phone, introduce);
+		MemberVO vo = new MemberVO(userid, password, email, emailAgree, interest, phone, introduce);
 		System.out.println(vo);
 		int result = dao.insert(vo);
 		System.out.println(result);
