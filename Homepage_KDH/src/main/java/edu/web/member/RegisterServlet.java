@@ -24,7 +24,7 @@ public class RegisterServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// url로 접근할 경우 경로 변경
-		response.sendRedirect("/Homepage_KDH/login.jsp");
+		response.sendRedirect("/Homepage_KDH/member-register.jsp"); //"/Homepage_KDH/login.jsp"
 		
 	}
 
@@ -44,10 +44,16 @@ public class RegisterServlet extends HttpServlet {
 		int result = dao.insert(vo);
 		System.out.println(result);
 		response.sendRedirect("login.jsp");
-		PrintWriter out = response.getWriter();
+		/* 알림 띄우기*/
+		PrintWriter out = response.getWriter(); // 얘는 response에 실려가서 request.인코딩 해도 불가능
+		if(result == 1) {
+//			out.print("<head><meta charset='UTF-8'></head>"); // alert 한글로 쓰려면 써야함
+			out.print("<script>alert('등록 성공');</script>"); // 문제 발생 ??????????? 나옴
+			out.print("<script>location.href='login.jsp';</script>");
+		}
 //		out.append("<!DOCCTYPE HTML>")
 //		   .append("<html>")
-//		   .append("<header><meta charset='UTF-8'></header>")
+//		   .append("<head><meta charset='UTF-8'></head>")
 //		   .append("<body>")
 //		   .append("<script>alert('회원 가입 완료');</script>")
 //		   .append("<script>location.href='login.jsp'</script>")

@@ -14,14 +14,18 @@
 		// TODO : userid를 제외한 모든 정보 수정 가능하게 input 태그 작성
 		//		  userid는 읽기만 가능하도록 input 태그 설정 (id는 수정 불가)
 		
-//		session.setAttribute("userid", userid);
+		String userid = (String) session.getAttribute("userid");
 	%>
 	<form action="update.do" method="post">
-		아이디 : <input type="text" name="userid" readonly="readonly"><br>
-		비밀번호 : <input type="password" name="password" required="required"><br>
-		이메일 : <input type="text" name="email"><br>
-		이메일 수신여부 : <input type="radio" name="emailAgree" value="yes">예
-	    			  <input type="radio" name="emailAgree" value="no" checked="checked">아니오
+		<p>아이디</p>
+	    <input type="text" name="userid" placeholder="<%=userid %>" readonly="readonly"> <!-- value로 써야 "<%=userid %>" 가 넘어감-->
+	    <p>패스워드</p>
+	    <input type="password" name="password" placeholder="비밀번호 입력" required="required">
+	    <p>이메일</p>
+	    <input type="email" name="email" placeholder="이메일 입력" required="required">
+	    <p>이메일 수신여부</p>
+	    <input type="radio" name="emailAgree" value="yes">예
+	    <input type="radio" name="emailAgree" value="no" checked="checked">아니오
 		<p>관심사항</p>
 	    <input type="checkbox" name="interest" value="IT">IT/인터넷
 	    <input type="checkbox" name="interest" value="movie">영화

@@ -27,7 +27,7 @@
 	<p>휴대폰 : <%=vo.getPhone() %></p>
 	<p>자기 소개 : <%=vo.getIntroduce() %></p><br>
 		
-	<button onclick="location.href='delete.do'">회원 탈퇴</button>
+	<button onclick="location.href='delete.do'">회원 탈퇴</button> <!-- 디비에 무언가 가면 pOSt 방식 사용 -->
 	<button onclick="location.href='member-update.jsp'">회원정보 수정</button>
 	
 </body>

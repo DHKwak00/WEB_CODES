@@ -24,18 +24,19 @@ public class DeleteServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// url로 접근할 경우 경로 변경
-		response.sendRedirect("/Homepage_KDH/login.jsp");
+		HttpSession session = request.getSession();
+		String userid = (String) session.getAttribute("userid");
+		System.out.println(userid);
+		int result = dao.delete(userid);
+		System.out.println(result);
+		response.sendRedirect("login.jsp");
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String userid = (String) session.getAttribute("userid");
-		int result = dao.delete(userid);
-		System.out.println(result);
 		
-		response.sendRedirect("login.jsp");
+		
+		
 		
 //		PrintWriter out = response.getWriter();
 //		out.append("<!DOCCTYPE HTML>")

@@ -22,7 +22,29 @@ public class MemberDAOImple implements MemberDAO, DBConnectionQuery {
 		}
 		return instance;
 	}
-
+	
+	// conn, pstmt 리소스 해제 함수
+	private void closeResource(Connection conn, PreparedStatement pstmt) {
+		try {
+			pstmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}// end closeResource()
+	
+	private void closeResource(Connection conn, PreparedStatement pstmt, ResultSet rs) { // 오버로딩
+		// 메소드 명이 같은데 변수 값이 달라서 사용 가능한 이유? 메소드 오버로딩
+		try {
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}// end closeResource()
 	@Override
 	public int insert(MemberVO vo) {
 		int result = 0;
@@ -47,13 +69,7 @@ public class MemberDAOImple implements MemberDAO, DBConnectionQuery {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				pstmt.close();
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			closeResource(conn, pstmt);
 		}
 
 		return result;
@@ -76,11 +92,11 @@ public class MemberDAOImple implements MemberDAO, DBConnectionQuery {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				String userid = rs.getString(1);
+				String userid = rs.getString(1); // 숫자 단점 테이블 컬럼순서를 인지해야함 getString (string)으로 쓰자
 				String password = rs.getString(2);
 				String email = rs.getString(3);
 				String emailAgree = rs.getString(4);
-				String[] interest = rs.getString(5).split(",");
+				String[] interest = rs.getString(5).split(","); // 체크 안해서 null 값이면 오류 그래서 "없음"을 넣음
 				String phone = rs.getString(6);
 				String introduce = rs.getString(7);
 				
@@ -91,14 +107,7 @@ public class MemberDAOImple implements MemberDAO, DBConnectionQuery {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			try {
-				rs.close();
-				pstmt.close();
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			closeResource(conn, pstmt, rs);
 		}
 		return vo;
 	}
@@ -134,6 +143,8 @@ public class MemberDAOImple implements MemberDAO, DBConnectionQuery {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			closeResource(conn, pstmt, rs);
 		}
 		return result;
 	}
@@ -143,17 +154,23 @@ public class MemberDAOImple implements MemberDAO, DBConnectionQuery {
 		int result = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		
 		try {
 			DriverManager.registerDriver(new OracleDriver());
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			System.out.println("DB 연결 성공");
 			pstmt = conn.prepareStatement(SQL_UPDATE);
 			
-			pstmt.setString();
-			pstmt.setString();
+			pstmt.setString(1, vo.getPassword());
+			pstmt.setString(2, vo.getEmail());
+			pstmt.setString(3, vo.getEmailAgree());
+			pstmt.setString(4, vo.getInterestJoin());
+			pstmt.setString(5, vo.getPhone());
+			pstmt.setString(6, vo.getIntroduce());
+			pstmt.setString(7, id);
 			
 			result = pstmt.executeUpdate();
-			System.out.println("회원 탈퇴 완료");
+			System.out.println("회원 정보 수정 완료");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

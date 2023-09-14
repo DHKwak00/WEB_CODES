@@ -35,7 +35,7 @@ public interface DBConnectionQuery {
 					  COL_EMAIL_AGREE + " = ?, " +
 					  COL_INTEREST + " = ?, " +
 					  COL_PHONE + " = ?, " +
-					  COL_INTRODUCE + " = ?, " + 
+					  COL_INTRODUCE + " = ? " + 
 		  " WHERE " + COL_USERID + " = ?";
 	
 	// DELETE TABLE_NAME WHERE ID 
