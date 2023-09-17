@@ -53,7 +53,7 @@
 	 </c:forEach>
 	 
 	 <h2>배열에서 데이터 출력</h2>
-	 <c:forEach var="s" item="${sports }" varStatus="status">
+	 <c:forEach var="s" items="${sports }" varStatus="status">
 	 현재 인덱스 값 : ${status.index };
 	 문자열 값 : ${s };
 	 루프 실행 횟수 : ${status.count };

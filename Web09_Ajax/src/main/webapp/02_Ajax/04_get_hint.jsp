@@ -9,33 +9,17 @@
 	다 지우면 추천: 없어짐
 	에러 안됨
  --%>
- <% 
- String str = request.getParameter("txt");
- String apple = "사과"; 
- String banana = "바나나";
- String coconut = "코코넛";
- %>
- <%-- <%
- if(param.str.equals("^a")){
- %>
- 	<p><%=apple %></p>
+ 
  <%
- }else if(str.equals("^b")){
+ 	String txt = request.getParameter("txt");
+ 	char first = txt.charAt(0);
+ 	if(first == 'a'){
+ 		out.print("apple");
+ 	}else if(first == 'b'){
+ 		out.print("banana");
+ 	}else if(first == 'c'){
+ 		out.print("coconut");
+ 	}else {
+ 		out.print("not fruits");
+ 	}
  %>
- 	<p><%=banana %></p>
- <%
- }else if(str.equals("^b")){
- %>
- 	<p><%=coconut %></p>
- <%
- }
- %> --%>
-
-<p>${param.str }</p> 
- 
- 
- 
- 
- 
- 
- 

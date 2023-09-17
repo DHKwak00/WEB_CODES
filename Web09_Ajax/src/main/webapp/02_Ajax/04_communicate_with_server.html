@@ -16,18 +16,24 @@
 	<script type="text/javascript">
 		function showHint(str) {
 			console.log(str);
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if(this.readyState == 4 && this.status == 200) {
-					console.log(this);
-					document.getElementById("txtHint").innerHTML =
-						this.responseText;
-				}
-			};
+			if(str.length == 0){
+				document.getElementById("txtHint").innerHTML = "";
+				
+			}else{
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if(this.readyState == 4 && this.status == 200) {
+						console.log(this);
+						document.getElementById("txtHint").innerHTML =
+							this.responseText;
+					}
+				};
+				
+				xhttp.open("GET", "04_get_hint.jsp?txt=" + str, true);
+				xhttp.send();
+			}
+			}
 			
-			xhttp.open("GET", "04_get_hint.jsp", true);
-			xhttp.send();
-		}
 	</script>
 	
 </body>
