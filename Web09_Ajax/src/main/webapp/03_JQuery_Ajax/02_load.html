@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<title>Ajax Method</title>
+</head>
+<body>
+	<div id="output">변경될 텍스트</div>
+	<button>외부 컨텐츠 가져오기</button>
+
+	<script type="text/javascript">
+		// - $(selector).load(URL, data, callback);
+		
+		$(document).ready(function() {
+			$('button').click(function() {
+				$('#output').load("01_demo_test.txt #p1", function(responseTxt, statusTxt, xhr){
+					if(statusTxt == "success"){ // 데이터 송수신에 성공하면
+						alert('외부 컨텐츠 로드 성공');
+					}else{
+						alert('Error : ' + xhr.status + " : " + xhr.statusText);
+					}
+									
+				}); // end output.load()
+				
+			}); // button.click()
+		}); // end document
+	</script>
+</body>
+</html>

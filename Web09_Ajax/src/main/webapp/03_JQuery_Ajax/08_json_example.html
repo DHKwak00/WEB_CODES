@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<title>회원 정보</title>
+</head>
+<body>
+	<h2>회원 정보</h2>
+	<p id="info"></p>
+	<script type="text/javascript">
+		// $.ger(url, callback)
+		// $.getJSON(url, data, callback) : 요청한 url의 JSON 데이터 호출
+		// url : 서버의 요청 주소
+		// data : 요청과 함께 보낼 데이터(선택)
+		// callback : JSON 데이터가 리턴됐을때 처리할 함수
+
+		$(document).ready(
+				function() {
+					getData(); // *** 함수를 호출해야 실행된다.
+					function getData() {
+						$.getJSON('../info.do', function(jsonData) {
+							// jsonData는 javascript 객체로 변환되어 있음
+							console.log(jsonData);
+							var result = '';
+							result += jsonData.userid + '<br>'
+									+ jsonData.password + '<br>'
+									+ jsonDate.email + '<br>';
+							$('#info').html(result);
+							
+						}); // end getJSON()
+					} // end getData()
+				}); // end document
+	</script>
+</body>
+</html>

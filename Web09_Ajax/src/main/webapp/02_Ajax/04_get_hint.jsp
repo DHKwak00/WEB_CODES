@@ -11,7 +11,8 @@
  --%>
  
  <%
- 	String txt = request.getParameter("txt");
+ 	String txt = request.getParameter("txt"); /* GET -> parameter 방식 사용 */
+ 	System.out.println("문자열 : " + txt);
  	char first = txt.charAt(0);
  	if(first == 'a'){
  		out.print("apple");
@@ -22,4 +23,7 @@
  	}else {
  		out.print("not fruits");
  	}
- %>
+ %> <!-- 출력을 html로 할 수 있다. <% %>를 써서 -->
+ 
+ 
+ 
