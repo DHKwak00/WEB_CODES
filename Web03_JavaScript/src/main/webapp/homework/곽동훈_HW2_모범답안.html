@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>연락처 프로그램</title>
+</head>
+<body>
+	<!-- JavaScript를 이용한 간단한 연락처 프로그램 -->
+	<h2>연락처 프로그램</h2>
+	이름 : <input type="text" id="cname"><br>
+	연락처 : <input type="text" id="phone"><br>
+	이메일 : <input type="text" id="email"><br><br>
+	<button onclick="insert()">입력</button>
+	<button onclick="selectAll()">전체검색</button>
+	인덱스 : <input type="number" id="index">
+	<button onclick="deleteByIndex()">삭제</button>
+	<hr>
+	<div id="output"></div>
+	
+	<script type="text/javascript">
+		
+		var contact; // 입력한 이름, 연락처, 이메일 값을 객체로 저장
+				
+		var contactList = new Array(); // 연락처 객체를 배열로 저장
+		
+		// 1. 미리 필요한 요소를 선언
+		var cname = document.getElementById('cname');
+		var phone = document.getElementById('phone');
+		var email = document.getElementById('email');
+		var index = document.getElementById('index');
+		var output = document.getElementById('output');
+		
+		// 2. 함수 정의
+		function insert(){
+			console.log('insert() 호출');
+			var nameVal = cname.value;
+			var phoneVal = phone.value;
+			var emailVal = email.value;
+			
+			contact = {
+					cname : nameVal,
+					phone : phoneVal,
+					email : emailVal
+			};
+			console.log(contact);
+			contactList.push(contact);
+			alert('등록 성공!');
+		};
+		
+		function selectAll(){
+			console.log('selectAll() 호출');
+			output.innerHTML = ''; // div 텍스트 초기화
+			for(x in contactList){
+				output.innerHTML += x + '번>'
+				+ ' 이름 : ' + contactList[x].cname + ' | '
+				+ ' 전화번호 : ' + contactList[x].phone + ' | '
+				+ ' 이메일 : ' + contactList[x].email + ' | <br>'
+			}
+			console.log(contact);
+			console.log(contactList);
+			alert('전체 검색 완료!');
+		}
+		function deleteByIndex(){
+			console.log('deleteByIndex() 호출');
+			var indexVal = index.value;
+			contactList.splice(indexVal, 1);
+			alert('삭제 완료');
+			selectAll();
+		}
+		
+		
+		
+	</script>
+</body>
+</html>

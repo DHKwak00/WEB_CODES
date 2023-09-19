@@ -25,7 +25,7 @@ public class SearchDAOImple implements SearchDAO, SearchQuery{
 	}
 	
 	@Override
-	public ArrayList<SearchVO> select(String title) {
+	public ArrayList<SearchVO> select(String title) { // vo가 아니라 String
 		ArrayList<SearchVO> list = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;

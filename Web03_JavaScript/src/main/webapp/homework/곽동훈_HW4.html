@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<input type="text" id="input">
+	<button onclick="change()">변경</button>
+	<div id="content">
+		<p style="color : red;">무슨 색 일까요?</p>
+		<p style="color : blue;">무슨 색 일까요?</p>
+	</div>
+	
+	<script type="text/javascript">
+		// input 태그에 "1번" 입력을 하고 버튼을 클릭하면
+		// div 태그 중 빨간색 p태그의 color를 변경하고
+		// input 태그에 "2번" 입력을 하고 버튼을 클릭하면
+		// div 태그 중 파란색 p태그의 color를 변경하세요.
+		var input = document.getElementById('input');
+		var ps = document.getElementsByTagName('p');
+		
+		function change(){
+			var inputVal = input.value;
+			console.log('change()');
+			if(inputVal == '1번'){
+				ps[0].style.color = 'violet';
+			}else if(inputVal == '2번'){
+				ps[1].style.color = 'orange';
+			}
+			
+			// 다른 방법(부모인 div id 값으로 접근)
+			/* var content = document.getElementById('content');
+			var input = document.getElementById('input').value;
+			
+			if(input == '1번'){
+				content.children[0].style.color = 'yellow';
+			}else if(input == '2번'){
+				content.children[1].style.color = 'green';
+			} */
+			
+			
+		}
+	</script>
+	
+</body>
+</html>

@@ -8,10 +8,11 @@ public interface SearchQuery {
 	
 	// DB 테이블 상수 정의
 	public static final String TABLE_NAME = "SEARCH";
+	public static final String COL_SNO = "SNO";
 	public static final String COL_TITLE = "TITLE";
 	
 	// Query문
 	// SELECT * FROM SEARCH WHERE TITLE LIKE ?
 	public static final String SQL_SEARCH = 
-			"SELECT * FROM " + TABLE_NAME + " WHERE " + COL_TITLE + " LIKE ?";
+			"SELECT " + COL_TITLE + " FROM " + TABLE_NAME + " WHERE " + COL_TITLE + " LIKE ?";
 }
