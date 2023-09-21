@@ -1,8 +1,9 @@
-package edu.web.board.persistence;
+package edu.web.persistence;
 
 import java.util.List;
 
-import edu.web.board.domain.BoardVO;
+import edu.web.domain.BoardVO;
+import edu.web.util.PageCriteria;
 
 public interface BoardDAO {
 	int insert(BoardVO vo);
@@ -10,4 +11,6 @@ public interface BoardDAO {
 	BoardVO select(int boardId);
 	int update(BoardVO vo);
 	int delete(int boardId);
+	List<BoardVO> select(PageCriteria criteria);
+	int getTotalCounts();
 }

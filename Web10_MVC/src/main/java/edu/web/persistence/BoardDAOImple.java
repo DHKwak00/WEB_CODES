@@ -1,4 +1,4 @@
-package edu.web.board.persistence;
+package edu.web.persistence;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import edu.web.board.domain.BoardVO;
 import edu.web.dbcp.connmgr.ConnMgr;
+import edu.web.domain.BoardVO;
+import edu.web.util.PageCriteria;
 
 public class BoardDAOImple implements BoardDAO, BoardQuery {
 	// 싱글톤
@@ -75,7 +76,7 @@ public class BoardDAOImple implements BoardDAO, BoardQuery {
 				boardTitle = rs.getString(COL_BOARD_TITLE);
 				boardContent = rs.getString(COL_BOARD_CONTENT);
 				memberId = rs.getString(COL_MEMBER_ID);
-				boardDateCreated = rs.getDate(COL_BOARD_DATE_CREATED);
+				boardDateCreated = rs.getTimestamp(COL_BOARD_DATE_CREATED);
 				vo = new BoardVO(boardId, boardTitle, boardContent, memberId, boardDateCreated);
 				list.add(vo);
 			}
@@ -178,4 +179,80 @@ public class BoardDAOImple implements BoardDAO, BoardQuery {
 		return result;
 	}
 
+	@Override
+	public List<BoardVO> select(PageCriteria criteria) {
+		List<BoardVO> list = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = ConnMgr.getConnection();
+			pstmt = conn.prepareStatement(SQL_SELECT_PAGESCOPE);
+			
+			pstmt.setInt(1, criteria.getStart());
+			pstmt.setInt(2, criteria.getEnd());
+
+			rs = pstmt.executeQuery();
+
+			int boardId;
+			String boardTitle;
+			String boardContent;
+			String memberId;
+			Date boardDateCreated;
+			BoardVO vo = null;
+
+			while (rs.next()) {
+				boardId = rs.getInt(COL_BOARD_ID);
+				boardTitle = rs.getString(COL_BOARD_TITLE);
+				boardContent = rs.getString(COL_BOARD_CONTENT);
+				memberId = rs.getString(COL_MEMBER_ID);
+				boardDateCreated = rs.getDate(COL_BOARD_DATE_CREATED);
+				vo = new BoardVO(boardId, boardTitle, boardContent, memberId, boardDateCreated);
+				list.add(vo);
+			}
+			System.out.println("select page 성공");
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnMgr.close(conn, pstmt, rs);
+		}
+
+		return list;
+	}
+
+	@Override
+	public int getTotalCounts() {
+		int count = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = ConnMgr.getConnection();
+			pstmt = conn.prepareStatement(SQL_TOTAL_CNT);
+
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt("total_cnt");
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			ConnMgr.close(conn, pstmt, rs);
+		}
+		return count;
+	}
+
 }
+
+
+
+
+
+

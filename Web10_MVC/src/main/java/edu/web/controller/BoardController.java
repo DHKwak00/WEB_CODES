@@ -1,4 +1,4 @@
-package edu.web.board.controller;
+package edu.web.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.web.board.domain.BoardVO;
-import edu.web.board.persistence.BoardDAO;
-import edu.web.board.persistence.BoardDAOImple;
+import edu.web.domain.BoardVO;
+import edu.web.persistence.BoardDAO;
+import edu.web.persistence.BoardDAOImple;
+import edu.web.util.PageCriteria;
+import edu.web.util.PageMaker;
 
 @WebServlet("*.do") // *.do : ~.do로 선언된 HTTP 호출에 전부 반응
 public class BoardController extends HttpServlet {
@@ -62,34 +64,59 @@ public class BoardController extends HttpServlet {
 		} else if (requestURI.contains(DETAIL + SERVER_EXTENSION)) {
 			System.out.println("Detail 호출 확인");
 			detail(request, response);
-		}else if(requestURI.contains(UPDATE + SERVER_EXTENSION)){
+		} else if (requestURI.contains(UPDATE + SERVER_EXTENSION)) {
 			System.out.println("Update 호출 확인"); // get- / post - 수정
-			if(requestMethod.equals("GET")) {
+			if (requestMethod.equals("GET")) {
 				updateGET(request, response);
-			}else if (requestMethod.equals("POST")) {
+			} else if (requestMethod.equals("POST")) {
 				updatePOST(request, response);
 			}
-		}else if(requestURI.contains(DELETE + SERVER_EXTENSION)){
+		} else if (requestURI.contains(DELETE + SERVER_EXTENSION)) {
 			System.out.println("delete 호출 확인");
-			if(requestMethod.equals("POST")) {
+			if (requestMethod.equals("POST")) {
 				deletePOST(request, response);
 			}
 		}
 
 	} // end controlURI()
 
-
-	
-
 	// 전체 게시판 내용(list)을 DB에서 가져오고, 그 데이터를 list.jsp 페이지에 보내기
 	private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<BoardVO> list = dao.select();
+//		List<BoardVO> list = dao.select();
+		String page = request.getParameter("page");
+
+		PageCriteria criteria = new PageCriteria();
+		if (page != null) {
+			criteria.setPage(Integer.parseInt(page));
+		}
+
+		List<BoardVO> list = dao.select(criteria);
 
 		String path = BOARD_URL + LIST + EXTENSION;
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 
 		request.setAttribute("list", list);
-		dispatcher.forward(request, response); // list.jsp로 url이 덮어씌워짐
+//		dispatcher.forward(request, response); // list.jsp로 url이 덮어씌워짐
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCriteria(criteria);
+		// 현재 페이지 번호 및 페이지 당 게시글 개수 정보 저장
+		int totalCount = dao.getTotalCounts(); // 전체 계시글 수
+		pageMaker.setTotalCount(totalCount);
+		pageMaker.setPageData(); // 저장된 데이터를 바탕으로 page 링크 데이터 생성
+
+		System.out.println("전체 게시글 수 : " + pageMaker.getTotalCount());
+		System.out.println("현재 선택된 페이지 : " + criteria.getPage());
+		System.out.println("한 페이지 당 게시글 수 : " + criteria.getNumsPerPage());
+		System.out.println("페이지 링크 번호 개수 : " + pageMaker.getNumsOfPageLinks());
+		System.out.println("시작 페이지 링크 번호 : " + pageMaker.getStartPageNo());
+		System.out.println("끝 페이지 링크 번호 : " + pageMaker.getEndPageNo());
+		System.out.println("이전 버튼 존재 유무 : " + pageMaker.isHasPrev());
+		System.out.println("다음 버튼 존재 유루 : " + pageMaker.isHasNext());
+
+		request.setAttribute("pageMaker", pageMaker);
+		dispatcher.forward(request, response);
+
 	} // end list()
 
 	// register.jsp 페이지 호출
@@ -130,48 +157,49 @@ public class BoardController extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		request.setAttribute("vo", vo);
 		dispatcher.forward(request, response);
-		
+
 	} // end detail()
-	
-	private void updateGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	private void updateGET(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		BoardVO vo = dao.select(boardId);
-		
+
 		String path = BOARD_URL + UPDATE + EXTENSION;
 		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
 		request.setAttribute("vo", vo);
 		dispatcher.forward(request, response);
-		
+
 	} // end updateGET()
-	
+
 	private void updatePOST(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		String boardTitle = request.getParameter("boardTitle");
 		String boardContent = request.getParameter("boardContent");
-		
+
 		BoardVO vo = new BoardVO(boardId, boardTitle, boardContent, null, null);
 		int result = dao.update(vo);
 		System.out.println(vo);
-		
-		if(result == 1) {
+
+		if (result == 1) {
 			PrintWriter out = response.getWriter();
 			out.print("<head>" + "<meta charset='UTF-8'>" + "</head>");
 			out.print("<script>alert('게시글 수정 성공');</script>");
 			out.print("<script>location.href='" + DETAIL + SERVER_EXTENSION + "?boardId=" + boardId + "';</script>");
 		}
 	}// end updatePOST()
-	
+
 	private void deletePOST(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		int result = dao.delete(boardId);
-		
-		if(result == 1) {
+
+		if (result == 1) {
 			PrintWriter out = response.getWriter();
 			out.print("<head>" + "<meta charset='UTF-8'>" + "</head>");
 			out.print("<script>alert('게시글 삭제 성공');</script>");
 			out.print("<script>location.href='" + MAIN + EXTENSION + "';</script>");
 		}
-		
+
 	}// end deletePOST()
 
 }// end BoardController
