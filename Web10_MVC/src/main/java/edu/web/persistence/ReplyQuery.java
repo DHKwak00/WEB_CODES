@@ -17,7 +17,7 @@ public interface ReplyQuery {
 	// SELECT * FROM REPLY WHERE BOARD_ID = ?
 	// ORDER BY REPLY_ID DESC;
 	public static final String SQL_SELECT_BY_BOARD_ID = 
-			"SELECT * FROM " + TABLE_NAME + " WHERE " + COL_BOARD_ID 
+			"SELECT * FROM " + TABLE_NAME + " WHERE " + COL_BOARD_ID + " = ? "
 			+ " ORDER BY " + COL_REPLY_ID + " DESC";
 	
 	// UPDATE_REPLY SET

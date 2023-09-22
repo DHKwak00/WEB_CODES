@@ -15,7 +15,7 @@
 		</div>
 		<div>
 			<p>작성자 : </p>
-			<input type="text" name="memberId" required="required">
+			<input type="text" name="memberId" required="required" value="${sessionScope.memberId} " readonly="readonly">
 		</div>
 		<div>
 			<p>내용 : </p>

@@ -40,7 +40,7 @@ public class BoardDAOImple implements BoardDAO, BoardQuery {
 			pstmt.setString(3, vo.getMemberId());
 
 			result = pstmt.executeUpdate();
-			System.out.println("insert 성공");
+			System.out.println("reply insert 성공");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,7 +80,7 @@ public class BoardDAOImple implements BoardDAO, BoardQuery {
 				vo = new BoardVO(boardId, boardTitle, boardContent, memberId, boardDateCreated);
 				list.add(vo);
 			}
-			System.out.println("select all 성공");
+			System.out.println("reply select all 성공");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -120,7 +120,7 @@ public class BoardDAOImple implements BoardDAO, BoardQuery {
 				vo = new BoardVO(boardId, boardTitle, boardContent, memberId, boardDateCreated);
 
 			}
-			System.out.println("select by board_id 성공");
+			System.out.println("reply select by board_id 성공");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -145,7 +145,7 @@ public class BoardDAOImple implements BoardDAO, BoardQuery {
 			pstmt.setInt(3, vo.getBoardId());
 
 			result = pstmt.executeUpdate();
-			System.out.println("update 성공");
+			System.out.println("reply update 성공");
 
 		} catch (Exception e) {
 			e.printStackTrace();

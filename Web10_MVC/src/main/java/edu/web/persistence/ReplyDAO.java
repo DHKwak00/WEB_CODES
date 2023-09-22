@@ -7,7 +7,7 @@ import edu.web.domain.ReplyVO;
 public interface ReplyDAO {
 	// insert, select, update, delete
 	int insert(ReplyVO vo);
-	List<ReplyVO> select();
+	List<ReplyVO> select(int boardId);
 	int update(ReplyVO vo);
 	int delete(int replyId);
 }

@@ -12,6 +12,19 @@ import edu.web.domain.BoardVO;
 import edu.web.domain.ReplyVO;
 
 public class ReplyDAOImple implements ReplyDAO, ReplyQuery{
+	// 싱글톤
+		private static ReplyDAOImple instance = null;
+
+		private ReplyDAOImple() {
+		}
+
+		public static ReplyDAOImple getInstance() {
+			if (instance == null) {
+
+				instance = new ReplyDAOImple();
+			}
+			return instance;
+		}
 
 	@Override
 	public int insert(ReplyVO vo) {
@@ -39,7 +52,7 @@ public class ReplyDAOImple implements ReplyDAO, ReplyQuery{
 	}
 
 	@Override
-	public List<ReplyVO> select() {
+	public List<ReplyVO> select(int boardId) {
 		List<ReplyVO> list = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -48,11 +61,12 @@ public class ReplyDAOImple implements ReplyDAO, ReplyQuery{
 		try {
 			conn = ConnMgr.getConnection();
 			pstmt = conn.prepareStatement(SQL_SELECT_BY_BOARD_ID);
+			pstmt.setInt(1, boardId);
 
 			rs = pstmt.executeQuery();
 
 			int replyId;
-			int boardId;
+			
 			String memberId;
 			String replyContent;
 			Date replyDateCreated;
@@ -60,7 +74,7 @@ public class ReplyDAOImple implements ReplyDAO, ReplyQuery{
 
 			while (rs.next()) {
 				replyId = rs.getInt(COL_REPLY_ID);
-				boardId = rs.getInt(COL_BOARD_ID);
+//				boardId = rs.getInt(COL_BOARD_ID);
 				memberId = rs.getString(COL_MEMBER_ID);
 				replyContent = rs.getString(COL_REPLY_CONTENT);
 				replyDateCreated = rs.getTimestamp(COL_REPLY_DATE_CREATED);

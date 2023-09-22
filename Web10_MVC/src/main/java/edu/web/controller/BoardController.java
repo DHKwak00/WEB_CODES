@@ -7,9 +7,11 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import edu.web.domain.BoardVO;
 import edu.web.persistence.BoardDAO;
@@ -122,10 +124,27 @@ public class BoardController extends HttpServlet {
 	// register.jsp 페이지 호출
 	private void registerGET(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String path = BOARD_URL + REGISTER + EXTENSION;
-		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-
-		dispatcher.forward(request, response);
+		
+		// 로그인 세션 체크
+		HttpSession session = request.getSession();
+		System.out.println(session);
+		
+		String memberId = (String) session.getAttribute("memberId");
+		
+		if(memberId != null) { // memberId 세션이 존재(로그인 상태)
+			String path = BOARD_URL + REGISTER + EXTENSION;
+			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+				
+			dispatcher.forward(request, response);
+		}else { // memberId 세션이 존재하지 않음(로그아웃 상태)
+			// 쿠키에 targetURL 정보를 저장
+			// targetURL = register.do
+			Cookie urlCookie = new Cookie("targetURL", REGISTER + SERVER_EXTENSION);
+			response.addCookie(urlCookie);
+			// 페이지 이동 전에 로그인을 먼저 하러 간다
+			response.sendRedirect("login.go");
+		}
+		
 
 	} // end registerGET()
 

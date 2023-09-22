@@ -24,7 +24,24 @@ li {
 </head>
 <body>
 	<h1>게시판 메인</h1>
+	<c:if test="${empty sessionScope.memberId }"> <!-- session이 없을때 -->
+		<a href="login.go">로그인</a>
+	</c:if>
+	<c:if test="${not empty sessionScope.memberId }">
+		<p>${sessionScope.memberId }님, 환영합니다.</p>
+		<a href="logout.go">로그아웃</a>
+	</c:if>
 	<a href="register.do"><input type="button" value="글 작성"></a>
+	
+	<!-- 
+	 * register.do로 이동할 때 상황에 따른 경로
+	 1. 로그인 상태
+	 ㄴ 원래 경로(register.do)로 이동한다.
+	 2. 비 로그인 상태
+	 ㄴ 로그인으로 이동한다.
+	 ㄴ 로그인 이동시 원래 목적지(resgister.do)에 대한 데이터를 쿠키에 저장
+	 -->
+	 
 	<hr>
 	<table>
 		<thead>
